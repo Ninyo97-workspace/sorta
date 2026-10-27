@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sorta</title>
+  <meta name="theme-color" content="#1f6feb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Sorta">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Setup: shown until the GitHub connection is configured -->
+  <section id="setup" class="view" hidden>
+    <h1>Connect Sorta</h1>
+    <p>Notes are stored as Markdown files in a private GitHub repo.</p>
+    <form id="setup-form">
+      <label>GitHub username <input name="owner" required autocomplete="username"></label>
+      <label>Data repo name <input name="repo" value="sorta-data" required></label>
+      <label>Access token <input name="token" type="password" required autocomplete="off"></label>
+      <button type="submit">Connect</button>
+      <p id="setup-error" class="error"></p>
+    </form>
+  </section>
+
+  <!-- Notes list -->
+  <section id="list" class="view" hidden>
+    <header>
+      <h1>Sorta</h1>
+      <div class="actions">
+        <button id="refresh" title="Refresh">↻</button>
+        <button id="new-note">+ New</button>
+      </div>
+    </header>
+    <input id="search" type="search" placeholder="Search notes">
+    <p id="status" class="status"></p>
+    <ul id="notes"></ul>
+    <footer><button id="disconnect" class="link">Disconnect</button></footer>
+  </section>
+
+  <!-- Editor -->
+  <section id="editor" class="view" hidden>
+    <header>
+      <button id="back">← Notes</button>
+      <span id="save-state" class="status"></span>
+      <button id="delete" class="danger">Delete</button>
+    </header>
+    <textarea id="text" placeholder="Start writing… (first line is the title)"></textarea>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

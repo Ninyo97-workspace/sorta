@@ -1,0 +1,27 @@
+#!/bin/sh
+# Open Sorta in its own window.
+# The URL comes from $SORTA_URL, or ~/.config/sorta/url, e.g. https://USERNAME.github.io/sorta/
+#   sorta          open the hosted app
+#   sorta --local  serve this folder on localhost:8000 (for trying out changes)
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CONF="$HOME/.config/sorta/url"
+
+if [ "$1" = "--local" ]; then
+  URL="http://localhost:8000/"
+  (cd "$ROOT" && python3 -m http.server 8000 >/dev/null 2>&1 &)
+  sleep 1
+else
+  URL="${SORTA_URL:-$(cat "$CONF" 2>/dev/null)}"
+  if [ -z "$URL" ]; then
+    echo "Set your app URL first:"
+    echo "  mkdir -p ~/.config/sorta && echo 'https://USERNAME.github.io/sorta/' > $CONF"
+    exit 1
+  fi
+fi
+
+if [ -d "/Applications/Google Chrome.app" ]; then
+  open -na "Google Chrome" --args --app="$URL"
+else
+  open "$URL"
+fi
